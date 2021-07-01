@@ -21,6 +21,6 @@ from tf_dataclass.modified_dataclass import dataclass, is_dataclass
 from tf_dataclass.packing_tools import function
 
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = 'Alexey Tochin'
 __all__ = ["dataclass", "is_dataclass", "function"]

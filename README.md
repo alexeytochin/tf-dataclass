@@ -1,8 +1,5 @@
 # tf-dataclass
 
-[comment]: <> (Tensorlfow Autograph pythonic dataclass support.)
-
-[comment]: <> (## Why?)
 Support python dataclass containers as input and output in callable TensorFlow graph 
   for tensorflow version >= 2.0.0.
 
@@ -14,7 +11,7 @@ $ pip install tf-dataclass
 ## Why
 TensorFlow 2 
 [autograph function](https://www.tensorflow.org/api_docs/python/tf/function)
-supports only nested structures of python tuples as inputs.
+supports only nested structures of python tuples as inputs and output.
 (Outputs can be also python dictionaries.)
 This is inconvenient once we go beyond small hello world cases,
 because we have to work with unstructured armfuls of tensors.
@@ -23,12 +20,6 @@ This small package is dedicated to fill this gap by letting
 decorated functions to take and return pythonic 
 ```dataclass``` 
 instancies. 
-
-[comment]: <> (In contrast with )
-
-[comment]: <> (```tensorflow.nest```)
-
-[comment]: <> (we have full support its compositions, inheritence, and .)
 
 ## Examples of usage:
 ### 1. Sequential features
@@ -143,7 +134,6 @@ class Sequential:
     @property
     def batch_size(self) -> tf.Tensor: # shape = [], dtype = tf.int32
         return tf.shape(self.feature)[0]
-
 ```
 
 ## Other features:

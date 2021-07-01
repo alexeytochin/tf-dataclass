@@ -29,7 +29,7 @@ setup(
     author='Alexey Tochin',
     author_email='alexey.tochin@gmail.com',
     license='Apache 2.0',
-    license_files=(here / 'LICENSE').read_text(encoding='utf-8'),
+    license_files=('LICENSE',),
     packages=['tf_dataclass'],
     install_requires=['tensorflow>=2.0.0'],
     classifiers=[
