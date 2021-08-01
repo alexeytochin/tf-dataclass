@@ -47,7 +47,12 @@ def pack_function(func: Callable, input_type_dict: Dict[str, type], output_type:
     @return: input1_tuple, input2_tuple, ... -> output_tuple
     """
     def dictorized_func(**kwargs):
-        assert kwargs.keys() == input_type_dict.keys()
+        if kwargs.keys() != input_type_dict.keys():
+            raise ValueError(
+                f"The keyword arguments set from type annotation does not coincide with actual arguments.\n"
+                f"From type annotations: {set(input_type_dict.keys())}\n"
+                f"Actual arguments: {set(kwargs.keys())}"
+            )
         packed_arg_dict = {
             arg_name: pack(unpacked_value=kwargs[arg_name], temple=type_val)
             for arg_name, type_val in input_type_dict.items()
@@ -69,7 +74,12 @@ def unpack_function(packed_func: Callable, input_type_dict: Dict[str, type], out
     def undictorized_func(*args, **kwargs):
         if args:
             raise ValueError("Only keyword arguments are currently supported.")
-        assert kwargs.keys() == input_type_dict.keys()
+        if kwargs.keys() != input_type_dict.keys():
+            raise ValueError(
+                f"The arguments set from type annotation does not coincide with actual arguments.\n"
+                f"From type annotations: {set(input_type_dict.keys())}\n"
+                f"Actual arguments: {set(kwargs.keys())}"
+            )
         input_kwargs = {}
         for arg_name, arg_value in kwargs.items():
             unpacked_arg = unpack(value=arg_value, temple=input_type_dict[arg_name])

@@ -1,9 +1,9 @@
 # tf-dataclass
 
-Support python dataclass containers as input and output in callable TensorFlow graph 
-  for tensorflow version >= 2.0.0.
+Support python dataclass containers as input and output in callable TensorFlow 2 graph.
 
 ## Install
+Make sure that ```tensorflow>=2.0.0``` or ```tensorflow-gpu>=2.0.0``` is installed.
 ```bash
 $ pip install tf-dataclass
 ```
@@ -17,7 +17,7 @@ This is inconvenient once we go beyond small hello world cases,
 because we have to work with unstructured armfuls of tensors.
 This small package is dedicated to fill this gap by letting 
 ```@tf.function``` 
-decorated functions to take and return pythonic 
+decorated functions to take and return pythonic
 ```dataclass``` 
 instancies. 
 
@@ -179,9 +179,28 @@ but not
 my_graph_func(x, y)
 ```
 
-## Under the roof
-Dataclasses and their nested structures are simply converted into nested pythonic tuples and back such that 
-```@tf.function``` 
-decorator acts on a "tuplized" version of the function. 
-Type hints are important and used as temples to pack and unpack dataclass arguments. 
+## Known Problems
+1. IDE autocomplete is currently not well-supported, for example, in PyCharm. 
+Solution: use import
+```python
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from dataclasses import dataclass
+else:
+    from tf_dataclass import dataclass
+```
+in each ```*.py``` file where ```dataclass``` is used.
 
+## Under the roof
+Dataclasses and their nested structures are simply converted into nested pythonic tuples and back.
+This way we wrap given functions such that all inputs and outputs are nested tuples.
+Then 
+```@tf.function``` 
+is applied. Afterward the graph function is wrapped bach to dataclass form.
+Type hints are used in python runtime for the graph creation as temples to pack and unpack dataclass arguments. 
+
+## Future plans
+1. Support ```tf.cond```, ```tf.case```, ```tf.switch_case```, ```tf.while_loop```, ```tf.Optional```, and 
+```tf.data.Iterator```.
+2. Support positional arguments.
+3. Conversion to ```tf.nest``` structures.

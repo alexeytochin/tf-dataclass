@@ -17,10 +17,12 @@ tf-dataclass.
 
 Support python dataclass containers as input and output in callable TensorFlow graph for tensorflow version >= 2.0.0.
 """
-from tf_dataclass.modified_dataclass import dataclass, is_dataclass
+from tf_dataclass.modified_dataclass import is_dataclass
 from tf_dataclass.packing_tools import function
 
+from tf_dataclass.modified_dataclass import dataclass
 
-__version__ = "0.1.1"
+
+__version__ = "0.1.2"
 __author__ = 'Alexey Tochin'
 __all__ = ["dataclass", "is_dataclass", "function"]

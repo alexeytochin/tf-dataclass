@@ -15,13 +15,11 @@
 from setuptools import setup
 import pathlib
 
-import tf_dataclass
-
 here = pathlib.Path(__file__).parent.resolve()
 
 setup(
     name='tf-dataclass',
-    version=tf_dataclass.__version__,
+    version="0.1.2",
     description='Dataclasses for TensorFlow',
     long_description=(here / 'README.md').read_text(encoding='utf-8'),
     long_description_content_type='text/markdown',
@@ -31,7 +29,7 @@ setup(
     license='Apache 2.0',
     license_files=('LICENSE',),
     packages=['tf_dataclass'],
-    install_requires=['tensorflow>=2.0.0'],
+    install_requires=[],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
