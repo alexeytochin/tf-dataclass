@@ -13,10 +13,9 @@
 # limitations under the License.
 # ==============================================================================
 import dataclasses as dataclasses_orig
-#from pydantic import dataclasses as dataclasses_orig
 
 
-from typing import Dict, Any, Union, Tuple, get_type_hints, TYPE_CHECKING
+from typing import Dict, Any, Union, Tuple, get_type_hints
 
 
 @classmethod
@@ -72,17 +71,14 @@ def from_tuple_to_tf_dataobject(cls, data_tuple: Tuple):
     return cls(**data_dict)
 
 
-# if TYPE_CHECKING:
-#     dataclass = dataclasses_orig.dataclass
-# else:
 def dataclass(
-        _cls = None,
+        _cls=None,
         *arg,
-        init = True,
-        repr = True,
-        eq = True,
-        order = False,
-        unsafe_hash = False,
+        init=True,
+        repr=True,
+        eq=True,
+        order=False,
+        unsafe_hash=False,
 ):
     """
     Modification of dataclasses.dataclass that adds the following methods:
@@ -103,20 +99,8 @@ def dataclass(
     _cls.as_tuple = tf_to_tuple
     _cls.is_better_dataclass = True
 
-    # def wrap(cls):
-    #     return dataclasses_orig._process_class(cls, init, repr, eq, order, unsafe_hash, frozen=False)
-    #
-    # # See if we're being called as @dataclass or @dataclass().
-    # if _cls is None:
-    #     # We're called with parens.
-    #     return wrap
-    #
-    # # We're called as @dataclass without parens.
-    # return wrap(_cls)
-
-
     return dataclasses_orig.dataclass(
-        _cls=_cls,
+        _cls,
         *arg,
         init=init,
         repr=repr,
@@ -134,4 +118,3 @@ def is_dataclass(class_or_instance: Union[type, Any]) -> bool:
     """
     cls = class_or_instance if isinstance(class_or_instance, type) else type(class_or_instance)
     return dataclasses_orig.is_dataclass(cls) and hasattr(cls, "is_better_dataclass") and cls.is_better_dataclass
-    # return dataclasses_orig.is_builtin_dataclass(cls) and hasattr(cls, "is_better_dataclass") and cls.is_better_dataclass

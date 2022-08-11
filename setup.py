@@ -19,7 +19,7 @@ here = pathlib.Path(__file__).parent.resolve()
 
 setup(
     name='tf-dataclass',
-    version="0.1.2",
+    version="0.1.3",
     description='Dataclasses for TensorFlow',
     long_description=(here / 'README.md').read_text(encoding='utf-8'),
     long_description_content_type='text/markdown',
@@ -36,9 +36,11 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     keywords='tensorflow, dataclass',
 )
