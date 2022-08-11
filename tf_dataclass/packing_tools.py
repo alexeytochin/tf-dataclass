@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-from collections import Callable
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Callable
 import tensorflow as tf
 
 from tf_dataclass.get_type import get_output_type, get_input_type_dict
@@ -43,6 +42,8 @@ def pack_function(func: Callable, input_type_dict: Dict[str, type], output_type:
     """
     Returns a version of @param func where its input and outputs are replaced by their unpacked versions.
         func -> pack . func . unpack
+    @param output_type: output type
+    @param input_type_dict: dictionary of input types
     @param func: input1, input2, ... -> output
     @return: input1_tuple, input2_tuple, ... -> output_tuple
     """
@@ -68,6 +69,8 @@ def unpack_function(packed_func: Callable, input_type_dict: Dict[str, type], out
     """
     Returns a version of @param func where its input and outputs are replaced by their unpacked versions. 
         func -> unpack . func . pack    
+    @param output_type: output type
+    @param input_type_dict: dictionary of types
     @param packed_func: input1_tuple, input2_tuple, ... -> output_tuple
     @return: input1, input2, ... -> output
     """
@@ -144,4 +147,5 @@ def function(func: Callable, **kwargs) -> Callable:
     dictorized_func = pack_function(func, input_type_dict, output_type)
     tf_func = tf.function(func=dictorized_func, **kwargs)
     undictorized_func = unpack_function(tf_func, input_type_dict, output_type)
+
     return undictorized_func
